@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import GlobeComponent from './components/GlobeComponent';
-import { Slider } from 'antd';
+import SettingsControl from './components/SettingsControl';
+import { Divider, Anchor, Button } from 'antd';
+
+const { Link } = Anchor;
 
 class App extends Component {
 
@@ -8,12 +11,55 @@ class App extends Component {
     return (
       <div className='container'>
         <div className='story-bar left-sider'>
-          <h1>My projection</h1>
+          <h1>Projection tool</h1>
           <p>
-          The intention of this web application is to demonstrate the construction of map projections. On the left side of the application, you find the controls panel to adjust the parameters of the different objects present in the 3D-scene in the center of this application. To navigate within the 3D-scene, use the left mouse button to rotate, the right mouse button to pan and the middle mouse button to zoom.
-          If you want to restore the default settings, use the reset-button in the control panel.
+          The intention of this web application is to demonstrate the construction of map projections.
           </p>
-          <Slider defaultValue={30}/>
+          <Anchor affix={false}>
+            <Link href="#surfaces" title="Projection surfaces" />
+            <Link href="#projections" title="Common projections" />
+            <Link href="#settings" title="Create my own projection" />
+          </Anchor>
+
+          <Divider orientation="left" id="surfaces">Projection surfaces</Divider>
+          <p>Typically, three different projection surfaces are used: The plane, the cone and the cylinder.
+            A projection based on the plane is shown by default when starting this web application.
+            If the settings have been modified, you can use the following button to enable the default settings.
+          </p>
+          <p>
+            The <span className="highlight">projection center</span> is located at the center of the earth, represented as a yellow sphere.
+            The position of the projection center is an important aspect when constructing map projections.
+            This can be adjusted by changing the "offset" value in the "light source" section of the controls panel.
+            Observe how different positions of the projection center change the resulting projection and
+            the geometry of the rays.
+          </p>
+          <SettingsControl
+            value={0}
+            max={2}
+            min={-2}
+            label={'Light source offset'}
+          />
+
+          <Divider orientation="left" id="projections">Common projections</Divider>
+          <p>
+          In this segment, we will briefly discuss some named map projections.
+          These projections form the class of the so-called "true perspective projections" and are the only common
+          projections that can be constructed using this web application.
+          Maybe the most simple map projection one can imagine is the gnomonic azimuthal map projection,
+          which is also the default setting in this web application. In this case, the projection surface is the plane
+          touch the North Pole and the light source is located at the center of the earth. Use the following button to
+          construct this map projection:
+          </p>
+          <div style={{textAlign: "center"}}>
+            <Button type="primary">Gnomonic Azimuthal</Button>
+          </div>
+          <Divider orientation="left" id="settings">Create my own projection</Divider>
+          <SettingsControl
+            value={0}
+            max={2}
+            min={-2}
+            label={'Light source offset'}
+          />
         </div>
         <GlobeComponent/>
       </div>

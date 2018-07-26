@@ -32,4 +32,10 @@ html, body, .container {
 .story-bar {
   box-sizing: border-box;
   padding: 1em;
+  overflow-y: auto;
+}
+
+.highlight {
+  background-color: #9bd8ff;
+  padding: 0.1em;
 }

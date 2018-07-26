@@ -1,6 +1,5 @@
 const THREE = require('three');
 const TrackballControls = require('three-trackballcontrols');
-const boundaries = require('./../images/boundaries.png');
 
 class GLCanvas {
   constructor(canvas) {
@@ -30,18 +29,6 @@ class GLCanvas {
       const p = this.camera.position;
       this.light.position.set(p.x, p.y + 1,p.z);
     });
-
-    this.earthMesh =  new THREE.Mesh(
-      new THREE.SphereGeometry(1.0, 128, 128),
-      new THREE.MeshPhongMaterial({
-        map: new THREE.TextureLoader().load(boundaries),
-        transparent: true,
-        opacity: 0.5,
-        side: THREE.DoubleSide,
-      })
-    );
-
-    this.scene.add(this.earthMesh);
 
     const axisHelper = new THREE.AxesHelper( 2 );
     this.scene.add( axisHelper );

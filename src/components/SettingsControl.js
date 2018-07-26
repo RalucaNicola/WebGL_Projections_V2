@@ -8,16 +8,6 @@ class SettingsControl extends React.Component {
     super(props);
   }
 
-  state = {
-    inputValue: this.props.value,
-  }
-
-  onChange = (value) => {
-    this.setState({
-      inputValue: value,
-    });
-  }
-
   render() {
     const min = this.props.min;
     const max = this.props.max;
@@ -29,16 +19,16 @@ class SettingsControl extends React.Component {
           <label>{this.props.label}</label>
         </Col>
         <Col span={12}>
-          <Slider marks={marks} min={min} max={max} onChange={this.onChange} value={this.state.inputValue} step={0.1} />
+          <Slider marks={marks} min={min} max={max} onChange={(value) => {this.props.onChange(value)}} value={this.props.value} step={0.01} />
         </Col>
         <Col span={4}>
           <InputNumber
             min={min}
             max={max}
             style={{ marginLeft: 16 }}
-            step={0.1}
-            value={this.state.inputValue}
-            onChange={this.onChange}
+            step={0.01}
+            value={this.props.value}
+            onChange={(value) => {this.props.onChange(value)}}
           />
         </Col>
       </Row>

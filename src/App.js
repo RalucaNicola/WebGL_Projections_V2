@@ -7,6 +7,27 @@ const { Link } = Anchor;
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      parameters: {
+        lightSource: {
+          offset: 0
+        }
+      }
+    }
+  }
+
+  onChange = (value) => {
+    this.setState({
+      parameters: {
+        lightSource: {
+          offset: value
+        }
+      }
+    });
+  }
+
   render() {
     return (
       <div className='container'>
@@ -34,15 +55,16 @@ class App extends Component {
             the geometry of the rays.
           </p>
           <SettingsControl
-            value={0}
+            value={this.state.parameters.lightSource.offset}
             max={2}
             min={-2}
             label={'Light source offset'}
+            onChange={this.onChange}
           />
 
           <Divider orientation="left" id="projections">Common projections</Divider>
           <p>
-          In this segment, we will briefly discuss some named map projections.
+          Let's have a look at some map projections.
           These projections form the class of the so-called "true perspective projections" and are the only common
           projections that can be constructed using this web application.
           Maybe the most simple map projection one can imagine is the gnomonic azimuthal map projection,
@@ -54,14 +76,18 @@ class App extends Component {
             <Button type="primary">Gnomonic Azimuthal</Button>
           </div>
           <Divider orientation="left" id="settings">Create my own projection</Divider>
+          <p>Now that you know the main concepts behind projection tools, feel free to
+            play with the parameters and create your own projections:
+          </p>
           <SettingsControl
-            value={0}
+            value={this.state.parameters.lightSource.offset}
             max={2}
             min={-2}
             label={'Light source offset'}
+            onChange={this.onChange}
           />
         </div>
-        <GlobeComponent/>
+        <GlobeComponent parameters={this.state.parameters}/>
       </div>
     );
   }

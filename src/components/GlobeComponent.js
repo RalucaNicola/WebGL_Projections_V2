@@ -10,7 +10,7 @@ class GlobeComponent extends Component {
   componentDidMount() {
     const glCanvas = new GLCanvas(this.root);
     const earth = new Earth(glCanvas.scene);
-    const projectionCenter = new ProjectionCenter(glCanvas.scene);
+    this.projectionCenter = new ProjectionCenter(glCanvas.scene);
     const clock  = new THREE.Clock();
 
     function animate () {
@@ -21,6 +21,12 @@ class GlobeComponent extends Component {
     };
 
     animate();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.parameters.lightSource.offset !== this.props.parameters.lightSource.offset) {
+      this.projectionCenter.setOffset(this.props.parameters.lightSource.offset);
+    }
   }
 
   render() {

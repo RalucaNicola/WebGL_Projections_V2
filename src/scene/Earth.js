@@ -15,9 +15,9 @@ class Earth {
     this.emptyTexture     = new THREE.TextureLoader().load(empty);
 
     const uniforms = {
-      tCountries: { type: "t", value: this.countriesTexture },
-      tGraticule: { type: "t", value: this.graticuleTexture },
-      tTissot:    { type: "t", value: this.tissotTexture }
+      tCountries: { type: 't', value: this.countriesTexture },
+      tGraticule: { type: 't', value: this.graticuleTexture },
+      tTissot:    { type: 't', value: this.tissotTexture }
     };
 
     const blendMaterial = new THREE.ShaderMaterial({

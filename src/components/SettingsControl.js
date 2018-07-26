@@ -19,7 +19,7 @@ class SettingsControl extends React.Component {
           <label>{this.props.label}</label>
         </Col>
         <Col span={12}>
-          <Slider marks={marks} min={min} max={max} onChange={(value) => {this.props.onChange(value)}} value={this.props.value} step={0.01} />
+          <Slider marks={marks} min={min} max={max} onChange={(value) => {this.props.onChange(value);}} value={this.props.value} step={0.01} />
         </Col>
         <Col span={4}>
           <InputNumber
@@ -28,7 +28,7 @@ class SettingsControl extends React.Component {
             style={{ marginLeft: 16 }}
             step={0.01}
             value={this.props.value}
-            onChange={(value) => {this.props.onChange(value)}}
+            onChange={(value) => {this.props.onChange(value);}}
           />
         </Col>
       </Row>

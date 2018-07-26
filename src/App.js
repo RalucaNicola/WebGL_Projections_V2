@@ -67,7 +67,7 @@ class App extends Component {
           Let's have a look at some map projections.
           These projections form the class of the so-called "true perspective projections" and are the only common
           projections that can be constructed using this web application.
-          Maybe the most simple map projection one can imagine is the gnomonic azimuthal map projection,
+          Maybe the most simple map projection one can imagine is the <span className="highlight">gnomonic azimuthal</span> map projection,
           which is also the default setting in this web application. In this case, the projection surface is the plane
           touch the North Pole and the light source is located at the center of the earth. Use the following button to
           construct this map projection:

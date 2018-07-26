@@ -18,7 +18,7 @@ class GlobeComponent extends Component {
       requestAnimationFrame(animate);
 
       glCanvas.update(delta);
-    };
+    }
 
     animate();
   }
@@ -31,7 +31,7 @@ class GlobeComponent extends Component {
 
   render() {
     console.log('rendering');
-    return <div className='right-sider' ref={element => this.root = element}/>
+    return <div className='right-sider' ref={element => this.root = element}/>;
   }
 }
 

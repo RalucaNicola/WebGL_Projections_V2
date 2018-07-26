@@ -8,3 +8,28 @@ html, body, .container {
   width: 100%;
   font-family: 'Raleway', sans-serif;
 }
+
+.left-sider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  width: 50%;
+}
+
+.right-sider {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  right: 5px;
+  width: 50%;
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.story-bar {
+  box-sizing: border-box;
+  padding: 1em;
+}

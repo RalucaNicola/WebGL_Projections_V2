@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
+@import '~antd/dist/antd.css';
 
-html, body {
+html, body, .container {
   margin: 0;
   padding: 0;
   height: 100%;

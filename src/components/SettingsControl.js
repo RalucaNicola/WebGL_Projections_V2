@@ -4,14 +4,10 @@ import { Slider, InputNumber, Row, Col } from 'antd';
 
 class SettingsControl extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const min = this.props.min;
     const max = this.props.max;
-    const marks = getMarks(min, max);
+    const marks = getMarks(min, max, this.props.markStep);
 
     return (
       <Row>
@@ -38,10 +34,13 @@ class SettingsControl extends React.Component {
 
 export default SettingsControl;
 
-function getMarks(min, max) {
+function getMarks(min, max, step) {
   const marks = {};
-  for (let i = min; i <= max; i++) {
+  console.log(min, max, step);
+  for (let i = min; i <= max; i += step) {
+    console.log(i);
     marks[i] = i.toString();
   }
+  console.log(marks);
   return marks;
 }

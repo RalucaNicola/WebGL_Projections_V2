@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import GlobeComponent from './components/GlobeComponent';
 import SettingsControl from './components/SettingsControl';
-import { Divider, Anchor, Button, Switch } from 'antd';
+import { Divider, Anchor, Button, Switch, List, Avatar } from 'antd';
 
 const { Link } = Anchor;
+const globeAvatar = require('./images/globe.png');
 
 class App extends Component {
 
@@ -11,7 +12,9 @@ class App extends Component {
     super(props);
     this.state = {
       lightSource: {
-        offset: 0
+        offset: 0,
+        latitude: 0,
+        longitude: 0
       },
       graticule: true,
       tissot: true,
@@ -20,23 +23,52 @@ class App extends Component {
   }
 
   render() {
+    const data = [{
+      title: "A representation of the Earth",
+      description: "A simplified representation of the Earth, typically in the shape of a sphere or a spheroid."
+    }, {
+      title: "A projection center",
+      description: "The projection center is typically represented as a point."
+    }, {
+      title: "A projection surface",
+      description: "The projection surface has the shape of a plane, cylinder or cone."
+    }]
     return (
       <div className='container'>
         <div className='story-bar left-sider'>
           <h1>Projection tool</h1>
           <p>
-          The intention of this web application is to demonstrate the construction of map projections.
+          This web application shows how map projections are constructed and what are the main projections.
+          The tutorial below is an introduction to map projections. If you're already an expert, feel free to
+          jump straight to the last part of the tutorial, where you can adjust the projection parameters and
+          create your own projection.
           </p>
           <Anchor affix={false}>
+            <Link href="#intro" title="Introduction" />
             <Link href="#surfaces" title="Projection surfaces" />
             <Link href="#projections" title="Common projections" />
             <Link href="#settings" title="Create my own projection" />
           </Anchor>
 
-          <Divider orientation="left" id="surfaces">Projection surfaces</Divider>
-          <p>Typically, three different projection surfaces are used: The plane, the cone and the cylinder.
-            A projection based on the plane is shown by default when starting this web application.
-            If the settings have been modified, you can use the following button to enable the default settings.
+          <Divider orientation="left" id="intro">Introduction</Divider>
+          <p>
+            A common approach to construct map projections makes use of three geometric objects:
+          </p>
+          <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={`${globeAvatar}`} />}
+                  title={item.title}
+                  description={item.description}
+                />
+              </List.Item>
+            )}
+          />
+          <p>
+            In the simplest case, the <span className="highlight">projection surface</span> is directly represented as a flat plane.
           </p>
           <p>
             The <span className="highlight">projection center</span> is located at the center of the earth, represented as a yellow sphere.
@@ -50,6 +82,7 @@ class App extends Component {
             max={2}
             min={-2}
             label={'Light source offset'}
+            markStep={1}
             onChange={(value) => {
               this.setState({
                 ...this.state,
@@ -60,6 +93,12 @@ class App extends Component {
               });
             }}
           />
+          <Divider orientation="left" id="surfaces">Projection surfaces</Divider>
+          <p>Typically, three different projection surfaces are used: The plane, the cone and the cylinder.
+            A projection based on the plane is shown by default when starting this web application.
+            If the settings have been modified, you can use the following button to enable the default settings.
+          </p>
+
 
           <Divider orientation="left" id="projections">Common projections</Divider>
           <p>
@@ -79,10 +118,43 @@ class App extends Component {
             play with the parameters and create your own projections:
           </p>
           <SettingsControl
+            value={this.state.lightSource.latitude}
+            max={180}
+            min={-180}
+            markStep={60}
+            label={'Relative latitude'}
+            onChange={(value) => {
+              this.setState({
+                ...this.state,
+                lightSource: {
+                  ...this.state.lightSource,
+                  latitude: value
+                }
+              });
+            }}
+            />
+            <SettingsControl
+            value={this.state.lightSource.longitude}
+            max={180}
+            min={-180}
+            markStep={60}
+            label={'Relative latitude'}
+            onChange={(value) => {
+              this.setState({
+                ...this.state,
+                lightSource: {
+                  ...this.state.lightSource,
+                  longitude: value
+                }
+              });
+            }}
+            />
+          <SettingsControl
             value={this.state.lightSource.offset}
             max={2}
             min={-2}
-            label={'Light source offset'}
+            markStep={1}
+            label={'Offset'}
             onChange={(value) => {
               this.setState({
                 ...this.state,
@@ -92,7 +164,7 @@ class App extends Component {
                 }
               });
             }}
-          />
+            />
           <Switch className="switch" checkedChildren="Graticule" unCheckedChildren="Graticule" defaultChecked
            onChange={(value) => {
             this.setState({

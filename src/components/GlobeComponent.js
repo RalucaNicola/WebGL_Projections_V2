@@ -30,6 +30,7 @@ class GlobeComponent extends Component {
 
     if (previous.lightSource.offset !== current.lightSource.offset) {
       this.projectionCenter.setOffset(current.lightSource.offset);
+      this.surface.setProjectionCenter(this.projectionCenter.sphere.getWorldPosition());
     }
     if (previous.graticule !== current.graticule) {
       this.setTexture('graticule', current.graticule);

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import GlobeComponent from './components/GlobeComponent';
 import SettingsControl from './components/SettingsControl';
+import AreaHighlight from './components/AreaHighlight';
 import { Divider, Anchor, Button, Switch, List, Avatar } from 'antd';
-
 const { Link } = Anchor;
+
 const globeAvatar = require('./images/globe.png');
 
 class App extends Component {
@@ -15,6 +16,12 @@ class App extends Component {
         offset: 0,
         latitude: 0,
         longitude: 0
+      },
+      geometry: {
+        axis: 4,
+        upperRadius: 0.01,
+        lowerRadius: 4,
+        offset: 1
       },
       graticule: true,
       tissot: true,
@@ -99,7 +106,6 @@ class App extends Component {
             If the settings have been modified, you can use the following button to enable the default settings.
           </p>
 
-
           <Divider orientation="left" id="projections">Common projections</Divider>
           <p>
           Let's have a look at some map projections.
@@ -113,15 +119,83 @@ class App extends Component {
           <div style={{textAlign: "center"}}>
             <Button type="primary">Gnomonic Azimuthal</Button>
           </div>
+
           <Divider orientation="left" id="settings">Create my own projection</Divider>
           <p>Now that you know the main concepts behind projection tools, feel free to
             play with the parameters and create your own projections:
           </p>
+          <AreaHighlight title="Projection surface geometry parameters">
+          <SettingsControl
+            value={this.state.geometry.axis}
+            min={0}
+            max={4}
+            markStep={1}
+            label={'Axis length'}
+            onChange={(value) => {
+              this.setState({
+                ...this.state,
+                geometry: {
+                  ...this.state.geometry,
+                  axis: value
+                }
+              });
+            }}
+          />
+          <SettingsControl
+            value={this.state.geometry.upperRadius}
+            min={0.01}
+            max={4}
+            markStep={1}
+            label={'Upper radius'}
+            onChange={(value) => {
+              this.setState({
+                ...this.state,
+                geometry: {
+                  ...this.state.geometry,
+                  upperRadius: value
+                }
+              });
+            }}
+          />
+          <SettingsControl
+            value={this.state.geometry.lowerRadius}
+            min={0.01}
+            max={4}
+            markStep={1}
+            label={'Lower radius'}
+            onChange={(value) => {
+              this.setState({
+                ...this.state,
+                geometry: {
+                  ...this.state.geometry,
+                  lowerRadius: value
+                }
+              });
+            }}
+          />
+          <SettingsControl
+            value={this.state.geometry.offset}
+            min={-2}
+            max={2}
+            markStep={1}
+            label={'Offset'}
+            onChange={(value) => {
+              this.setState({
+                ...this.state,
+                geometry: {
+                  ...this.state.geometry,
+                  offset: value
+                }
+              });
+            }}
+          />
+          </AreaHighlight>
+          <AreaHighlight title="Light source parameters">
           <SettingsControl
             value={this.state.lightSource.latitude}
-            max={180}
             min={-180}
-            markStep={60}
+            max={180}
+            markStep={90}
             label={'Relative latitude'}
             onChange={(value) => {
               this.setState({
@@ -135,9 +209,9 @@ class App extends Component {
             />
             <SettingsControl
             value={this.state.lightSource.longitude}
-            max={180}
             min={-180}
-            markStep={60}
+            max={180}
+            markStep={90}
             label={'Relative latitude'}
             onChange={(value) => {
               this.setState({
@@ -151,8 +225,8 @@ class App extends Component {
             />
           <SettingsControl
             value={this.state.lightSource.offset}
-            max={2}
             min={-2}
+            max={2}
             markStep={1}
             label={'Offset'}
             onChange={(value) => {
@@ -165,6 +239,7 @@ class App extends Component {
               });
             }}
             />
+          </AreaHighlight>
           <Switch className="switch" checkedChildren="Graticule" unCheckedChildren="Graticule" defaultChecked
            onChange={(value) => {
             this.setState({

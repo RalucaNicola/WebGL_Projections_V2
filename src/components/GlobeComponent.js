@@ -28,9 +28,34 @@ class GlobeComponent extends Component {
     const previous = prevProps.params;
     const current = this.props.params;
 
+    if (previous.geometry.axis !== current.geometry.axis) {
+      this.surface.setAxisLength(current.geometry.axis);
+    }
+    if (previous.geometry.upperRadius !== current.geometry.upperRadius) {
+      this.surface.setTopRadius(current.geometry.upperRadius);
+    }
+    if (previous.geometry.lowerRadius !== current.geometry.lowerRadius) {
+      this.surface.setBottomRadius(current.geometry.lowerRadius);
+    }
+    if (previous.geometry.lowerRadius !== current.geometry.lowerRadius) {
+      this.surface.setBottomRadius(current.geometry.lowerRadius);
+    }
+    if (previous.geometry.offset !== current.geometry.offset) {
+      this.surface.setGeometryOffset(current.geometry.offset);
+    }
     if (previous.lightSource.offset !== current.lightSource.offset) {
       this.projectionCenter.setOffset(current.lightSource.offset);
       this.surface.setProjectionCenter(this.projectionCenter.sphere.getWorldPosition());
+    }
+    if (previous.lightSource.latitude !== current.lightSource.latitude) {
+      const radianValue = (current.lightSource.latitude / 360) * 2 * Math.PI;
+      this.projectionCenter.setLatitude(radianValue);
+	    this.surface.setProjectionCenter(this.projectionCenter.sphere.getWorldPosition());
+    }
+    if (previous.lightSource.longitude !== current.lightSource.longitude) {
+      const radianValue = (current.lightSource.longitude / 360) * 2 * Math.PI;
+      this.projectionCenter.setLongitude(radianValue);
+	    this.surface.setProjectionCenter(this.projectionCenter.sphere.getWorldPosition());
     }
     if (previous.graticule !== current.graticule) {
       this.setTexture('graticule', current.graticule);

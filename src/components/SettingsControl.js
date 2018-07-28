@@ -36,11 +36,11 @@ export default SettingsControl;
 
 function getMarks(min, max, step) {
   const marks = {};
-  console.log(min, max, step);
   for (let i = min; i <= max; i += step) {
-    console.log(i);
+    if (i !== min) {
+      i = parseInt(i);
+    }
     marks[i] = i.toString();
   }
-  console.log(marks);
   return marks;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GlobeComponent from './components/GlobeComponent';
 import SettingsControl from './components/SettingsControl';
-import { Divider, Anchor, Button } from 'antd';
+import { Divider, Anchor, Button, Switch } from 'antd';
 
 const { Link } = Anchor;
 
@@ -10,22 +10,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      parameters: {
-        lightSource: {
-          offset: 0
-        }
-      }
+      lightSource: {
+        offset: 0
+      },
+      graticule: true,
+      tissot: true,
+      countries: true
     }
-  }
-
-  onChange = (value) => {
-    this.setState({
-      parameters: {
-        lightSource: {
-          offset: value
-        }
-      }
-    });
   }
 
   render() {
@@ -55,11 +46,19 @@ class App extends Component {
             the geometry of the rays.
           </p>
           <SettingsControl
-            value={this.state.parameters.lightSource.offset}
+            value={this.state.lightSource.offset}
             max={2}
             min={-2}
             label={'Light source offset'}
-            onChange={this.onChange}
+            onChange={(value) => {
+              this.setState({
+                ...this.state,
+                lightSource: {
+                  ...this.state.lightSource,
+                  offset: value
+                }
+              });
+            }}
           />
 
           <Divider orientation="left" id="projections">Common projections</Divider>
@@ -80,14 +79,45 @@ class App extends Component {
             play with the parameters and create your own projections:
           </p>
           <SettingsControl
-            value={this.state.parameters.lightSource.offset}
+            value={this.state.lightSource.offset}
             max={2}
             min={-2}
             label={'Light source offset'}
-            onChange={this.onChange}
+            onChange={(value) => {
+              this.setState({
+                ...this.state,
+                lightSource: {
+                  ...this.state.lightSource,
+                  offset: value
+                }
+              });
+            }}
+          />
+          <Switch className="switch" checkedChildren="Graticule" unCheckedChildren="Graticule" defaultChecked
+           onChange={(value) => {
+            this.setState({
+              ...this.state,
+              graticule: value
+            });
+            console.log(this.state);
+          }}/>
+          <Switch className="switch" checkedChildren="Countries" unCheckedChildren="Countries" defaultChecked
+          onChange={(value) => {
+            this.setState({
+              ...this.state,
+              countries: value
+            });
+          }}/>
+          <Switch className="switch" checkedChildren="Indicators" unCheckedChildren="Indicators" defaultChecked
+          onChange={(value) => {
+            this.setState({
+              ...this.state,
+              tissot: value
+            });
+          }}
           />
         </div>
-        <GlobeComponent parameters={this.state.parameters}/>
+        <GlobeComponent params={this.state}/>
       </div>
     );
   }

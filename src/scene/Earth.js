@@ -37,11 +37,11 @@ class Earth {
 
   }
 
-  enableBordersTexture() {
+  enableCountriesTexture() {
     this.earthMesh.material.uniforms.tCountries.value = this.countriesTexture;
   }
 
-  disableBordersTexture() {
+  disableCountriesTexture() {
     this.earthMesh.material.uniforms.tCountries.value = this.emptyTexture;
   }
 

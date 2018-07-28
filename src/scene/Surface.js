@@ -356,11 +356,11 @@ class Surface {
     this.disableForms = disableForms;
   }
 
-  enableBordersTexture() {
+  enableCountriesTexture() {
     this.mesh.material.uniforms.tCountries.value = this.countriesTexture;
   }
 
-  disableBordersTexture() {
+  disableCountriesTexture() {
     this.mesh.material.uniforms.tCountries.value = this.emptyTexture;
   }
 

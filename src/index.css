@@ -39,3 +39,7 @@ html, body, .container {
   background-color: #9bd8ff;
   padding: 0.1em;
 }
+
+.switch {
+  margin: 10px !important;
+}
